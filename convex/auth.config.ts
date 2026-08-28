@@ -1,15 +1,3 @@
-declare const process: {
-  env: {
-    CONVEX_SITE_URL?: string;
-    [key: string]: string | undefined;
-  };
-};
+import { authConfig } from "@convex-dev/auth/server";
 
-export default {
-  providers: [
-    {
-      domain: process.env.CONVEX_SITE_URL!,
-      applicationID: "convex",
-    },
-  ],
-};
+export default authConfig;
