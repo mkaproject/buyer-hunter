@@ -16,6 +16,7 @@ export default function BuyerHunting() {
   const [editingBuyer, setEditingBuyer] = useState<any>(null);
   const [showForm, setShowForm] = useState(false);
   const [activeTab, setActiveTab] = useState("contacts");
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const stats = useQuery(api.buyers.getStats);
   const buyers = useQuery(api.buyers.list, {
@@ -225,8 +226,19 @@ export default function BuyerHunting() {
           <Link to="/costs" className="nav-link">Biaya & HPP</Link>
           <button className="primary" onClick={openNew}>+ Tambah Buyer</button>
           <button className="btn-logout" onClick={() => signOut()}>Logout</button>
+          <button className="hamburger" onClick={() => setMobileOpen(true)}>☰</button>
         </div>
       </header>
+
+      <div className={`mobile-overlay ${mobileOpen ? "open" : ""}`} onClick={() => setMobileOpen(false)} />
+      <nav className={`mobile-menu ${mobileOpen ? "open" : ""}`}>
+        <button className="close-mobile" onClick={() => setMobileOpen(false)}>×</button>
+        <div className="brand">Buyer <span style={{ color: "#ff9162" }}>Hunting</span></div>
+        <div className="sub">CRM · buyer untuk produk kelapa</div>
+        <button onClick={() => { openNew(); setMobileOpen(false); }}>+ Tambah Buyer</button>
+        <Link to="/costs" onClick={() => setMobileOpen(false)}>Biaya & HPP</Link>
+        <button onClick={() => { signOut(); setMobileOpen(false); }}>Logout</button>
+      </nav>
 
       <main className="wrap">
         {stats && (

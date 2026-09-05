@@ -1,0 +1,35 @@
+const crypto = require('crypto');
+const privateKeyPem = `-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC5RXtzZvol/+uv
+qFdJaHFUJLCE3xfdZYIL1AFT/aBEuINaEhAI6jB1KBSDKLl8w18PC8GHND42V/3l
++Kwo4RSOuS3XSzTqSzralh0QA3aqkcPdXD6eEWRmoi5HUwZv4GH6rho8sDuSjy9E
+mSJzudRRPVayVFbegAl5tMptyoPuHC4Z3BYwY0ga7DlloyHJK0ym5DP5FPNSKyEC
+yUoNlZAnLWf5Mr6iCvqDYH35qfiJ6A+p1GpR7rOtxQ4bsJx3cukJMJ+SNUeEdYrR
+4Q59va6PENi4P8ihtghiKxT9ChFuIJQCUmoFCbDD2BAvLmhKzq1xuJq6IQ+lD79l
+4eJe9hnrAgMBAAECggEAESkJYf5nK9iqrA6ry9kId8jqL9rS3nPSrTIwaU1aaEl6
+1eXkZevJgm1GJE8QvY8COzK7wY0qOGUppDP5pjoRNslm7V3btqb/LYd7HteWe/5o
+v0d8mUfdHjbmK6Vzn2GPuBgi+ZbZ/bb7cGwkQvnMW5xfbycQRycu0xhwXRj4sISN
+NgZRnj+P5ZHniujq+1F/QUmKZ2EflMF1WiDXeQ5Y+SmHv8lJhrfPHSAf6fpey6KF
+dQx3Fu0uoMqdp88rF5Zz7MII6DP7ft2oQ4GVrr1/BkI8UmSIZ2THSH1nb9wjTfjw
+uk8URh7pTDF6ZzCDQUUEmjS5v8Bse6egPElzdM8ByQKBgQDrp118VWHXvSJXHaBR
+2mf5aPxD/jB3FA/Yd7RaYGDVNdV1gVWbtT8HgQxPOwgrWgdL/NEgjJ9GE/P9ytB2
+Yl7Pb6EwPW++taNob47cX6CtTc0McnhLgbpLHgZunT9eQ5oJBIAHwJ/GgPCz75XQ
+83jfVrbRphiiRic6dAgx8hU0dQKBgQDJRIUtn5wS2rJ/kevXQJ4wQ5UsPZR1hFCe
+mkGHuU8P3djBopea2T1NGAm6cYKv7VC0gvgqXEds8a20JkNCkWhVA1dGNeweZxxC
+zvLo95OHslqjyPpXZlzgv3Q74CjmRoKD8CP5EgAeV0QZdcRU1a7hYK4h7PKqFHwa
+39A8fzrI3wKBgQC3PvQxROvKqWZUu9L5E48aoQrZjIX/cvhHaf4y8RMbeLs+no4F
+gNE8cpsx2UOnAmD+M+AjIXaRNd7bkaS9Cg2T3MhJDN0iPXiOM4Gx2CLH4OH8Nd9Z
+R82nr/dseJbYJFVZgchVPvJ/l7CVG08ypsFtWq7bI/+v4EGM8MGWpRrcKQKBgAbX
+oX9vkarCbJcRqubid35Ejem3Hjjwip0ZuWiX0CxF6nyKvoSxJfhc/NetzDeW5ct9
+OFqYUIVPogwh0N+OefGJ74mfg6t07e0HhBKPeCCA27v9tSULgdTSLW1rrXhGpWE+
+5Lou9noRlWsYKdiIey2GT+UvXQCTObTgLwAfgywZAoGANJ0ep524i8sQ1IBBE7E4
+kBQkdshbtEGp0H/QRkBRUnaYMcqxL2S4hhRio/uiiJND+dfqLTUW5tb70mmCDZsJ
+gJE9fT/d+k9dMU0MdrWztLGLpHfAt8Qb+8928x6l490oCWoqZ8WvZ32vYO7yjX0Q
+v5t1gENDao2339CV5ju6jcI=
+-----END PRIVATE KEY-----`;
+const privateKey = crypto.createPrivateKey(privateKeyPem);
+const publicKey = crypto.createPublicKey(privateKey);
+const jwk = publicKey.export({ format: 'jwk' });
+jwk.kid = 'buyer-hunter-key';
+const jwks = JSON.stringify({ keys: [jwk] });
+console.log(jwks);

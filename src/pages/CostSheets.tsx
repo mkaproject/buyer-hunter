@@ -6,6 +6,7 @@ import type { Id } from "../../convex/_generated/dataModel";
 
 export default function CostSheets() {
   const [activeSheet, setActiveSheet] = useState<Id<"cost_sheets"> | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const sheets = useQuery(api.costSheets.list);
   const detail = useQuery(
@@ -66,8 +67,19 @@ export default function CostSheets() {
           </div>
           <div className="sub">Perhitungan lokal untuk produk ekspor</div>
         </div>
-        <Link to="/" className="nav-link">← Buyer Hunting</Link>
+        <div className="top-actions">
+          <Link to="/" className="nav-link">← Buyer Hunting</Link>
+          <button className="hamburger" onClick={() => setMobileOpen(true)}>☰</button>
+        </div>
       </header>
+
+      <div className={`mobile-overlay ${mobileOpen ? "open" : ""}`} onClick={() => setMobileOpen(false)} />
+      <nav className={`mobile-menu ${mobileOpen ? "open" : ""}`}>
+        <button className="close-mobile" onClick={() => setMobileOpen(false)}>×</button>
+        <div className="brand">Biaya <span style={{ color: "#ff9162" }}>&amp; HPP</span></div>
+        <div className="sub">Perhitungan lokal untuk produk ekspor</div>
+        <Link to="/" onClick={() => setMobileOpen(false)}>← Buyer Hunting</Link>
+      </nav>
 
       <main className="wrap">
         {sheets && (
